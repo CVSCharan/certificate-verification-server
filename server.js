@@ -5,26 +5,27 @@ const app = express();
 const port = 9090;
 
 app.use(express.json()); // Middleware to parse JSON data
+app.use(cors());
 
-const allowedOrigins = [
-  "http://localhost:3000", // Local development URL
-  "https://certificate-verification-client-l8jxxzadu-cvs-charans-projects.vercel.app", // Your production frontend URL
-];
+// const allowedOrigins = [
+//   "http://localhost:3000", // Local development URL
+//   "https://certificate-verification-client-l8jxxzadu-cvs-charans-projects.vercel.app", // Your production frontend URL
+// ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.error("Blocked by CORS:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "OPTIONS"], // Ensure OPTIONS is included for preflight requests
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         console.error("Blocked by CORS:", origin);
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     methods: ["GET", "POST", "OPTIONS"], // Ensure OPTIONS is included for preflight requests
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
 // Initialize the SQLite database
 const db = new sqlite3.Database("./database.db", (err) => {
