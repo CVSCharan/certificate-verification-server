@@ -8,6 +8,7 @@ app.use(express.json()); // Middleware to parse JSON data
 
 const allowedOrigins = [
   "http://localhost:3000", // Local development URL
+  "https://certificate-verification-client-sooty.vercel.app",
 ];
 
 app.use(
