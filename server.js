@@ -8,13 +8,20 @@ app.use(express.json()); // Middleware to parse JSON data
 
 const allowedOrigins = [
   "http://localhost:3000", // Local development URL
-  "https://certificate-verification-client-sooty.vercel.app",
+  "https://certificate-verification-client-l8jxxzadu-cvs-charans-projects.vercel.app", // Your production frontend URL
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "OPTIONS"], // Add OPTIONS for preflight requests
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.error("Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "OPTIONS"], // Ensure OPTIONS is included for preflight requests
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
