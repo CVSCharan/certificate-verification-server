@@ -169,6 +169,12 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to Certificate Verification Server");
 });
 
+// Poling the server for activeness
+app.get("/api/ping", (req, res) => {
+  console.info("Server is alive!");
+  res.status(200).send("Server is alive!");
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
