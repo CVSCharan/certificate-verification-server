@@ -13,16 +13,8 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      console.log("Request Origin:", origin); // Debug log
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.error("Blocked by CORS:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST"],
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "OPTIONS"], // Add OPTIONS for preflight requests
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
